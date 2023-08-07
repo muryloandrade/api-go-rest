@@ -1,11 +1,11 @@
 package controllers
 
 import (
+	"api-go-rest/database"
 	"api-go-rest/models"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -15,19 +15,23 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(models.Personalidades)
+	var per []models.Personalidade
+	database.DB.Find(&per)
+	json.NewEncoder(w).Encode(per)
 }
 
 func RetornaID(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
-
-	for _, personalidade := range models.Personalidades {
-		if strconv.Itoa(personalidade.Id) == id {
-			json.NewEncoder(w).Encode(personalidade)
-		}
-		if strconv.Itoa(personalidade.Id) != id {
-			fmt.Fprintf(w, "Error, your Id not existing in database")
-		}
-	}
+	var personalidade models.Personalidade
+	database.DB.First(&personalidade, id)
+	json.NewEncoder(w).Encode(personalidade)
+	// for _, personalidade := range models.Personalidades {
+	// 	if strconv.Itoa(personalidade.Id) == id {
+	// 		json.NewEncoder(w).Encode(personalidade)
+	// 	}
+	// 	if strconv.Itoa(personalidade.Id) != id {
+	// 		fmt.Fprintf(w, "Error, your Id not existing in database")
+	// 	}
+	// }
 }
