@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
@@ -18,5 +19,5 @@ func HandleResquests() {
 	r.HandleFunc("/personalidades/{id}", controllers.RetornaID).Methods("Get")
 	r.HandleFunc("/personalidades/{id}", controllers.DeletaPersonalidade).Methods("Delete")
 	r.HandleFunc("/personalidades/{id}", controllers.EditPersonalidade).Methods("Put")
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
