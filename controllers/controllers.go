@@ -26,12 +26,19 @@ func RetornaID(w http.ResponseWriter, r *http.Request) {
 	var personalidade models.Personalidade
 	database.DB.First(&personalidade, id)
 	json.NewEncoder(w).Encode(personalidade)
-	// for _, personalidade := range models.Personalidades {
-	// 	if strconv.Itoa(personalidade.Id) == id {
-	// 		json.NewEncoder(w).Encode(personalidade)
-	// 	}
-	// 	if strconv.Itoa(personalidade.Id) != id {
-	// 		fmt.Fprintf(w, "Error, your Id not existing in database")
-	// 	}
-	// }
+}
+
+func CriaPersonalidade(w http.ResponseWriter, r *http.Request) {
+	var newPersonalidade models.Personalidade
+	json.NewDecoder(r.Body).Decode(&newPersonalidade)
+	database.DB.Create(&newPersonalidade)
+	json.NewEncoder(w).Encode(newPersonalidade)
+}
+
+func DeletaPersonalidade(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var personalidadeDelete models.Personalidade
+	database.DB.Delete(&personalidadeDelete, id)
+	json.NewEncoder(w).Encode(personalidadeDelete)
 }
