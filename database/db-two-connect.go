@@ -15,11 +15,11 @@ var (
 
 func DbTwoConnect() {
 	var (
-		host1     = "172.21.0.2"
+		host1     = "172.20.120.180"
 		port1     = 5432
 		user1     = "root"
 		password1 = "root"
-		host2     = "172.21.0.2"
+		host2     = "172.20.120.180"
 		port2     = 5433
 		user2     = "root"
 		password2 = "root"
@@ -43,6 +43,7 @@ func DbTwoConnect() {
 
 	// Example: Query from read-only replica
 	rows, err := DBTWO.Query("SELECT * FROM users")
+
 	if err != nil {
 		log.Print("error querying read-only replica:", err)
 	} else {

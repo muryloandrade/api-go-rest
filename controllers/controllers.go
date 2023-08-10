@@ -14,6 +14,8 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 func TodosUsuarios(w http.ResponseWriter, r *http.Request) {
 	var per []models.User
-	database.DBONE.Query("SELECT * FROM personalidades", &per)
+	fmt.Println(
+		database.DBONE.Query("SELECT * FROM personalidades", &per))
+
 	json.NewEncoder(w).Encode(per)
 }
