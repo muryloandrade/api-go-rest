@@ -11,6 +11,8 @@ services:
       - "5432:5432"
     volumes:
       - ./migration/db-script.sql:/docker-entrypoint-initdb.d/db-script.sql
+    networks:
+      - mynetwork
   postgres2:
     container_name: postgres2
     image: postgres:latest
@@ -20,6 +22,8 @@ services:
       - POSTGRES_DB=root
     ports:
       - "5433:5432"
+    networks:
+      - mynetwork
     volumes:
       - ./migration/db-users.sql:/docker-entrypoint-initdb.d/db-users.sql
   pgadmin-compose:
@@ -29,3 +33,9 @@ services:
       PGADMIN_DEFAULT_PASSWORD: "123456"
     ports:
       - "54321:80"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    external: true

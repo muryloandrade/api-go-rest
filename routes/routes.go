@@ -14,10 +14,6 @@ func HandleResquests() {
 	r := mux.NewRouter()
 	r.Use(middleware.ContentTypeMiddleware)
 	r.HandleFunc("/", controllers.Home)
-	r.HandleFunc("/personalidades", controllers.TodasPersonalidades).Methods("Get")
-	r.HandleFunc("/personalidades", controllers.CriaPersonalidade).Methods("Post")
-	r.HandleFunc("/personalidades/{id}", controllers.RetornaID).Methods("Get")
-	r.HandleFunc("/personalidades/{id}", controllers.DeletaPersonalidade).Methods("Delete")
-	r.HandleFunc("/personalidades/{id}", controllers.EditPersonalidade).Methods("Put")
+	r.HandleFunc("/banco", controllers.TodosUsuarios).Methods("Get")
 	log.Fatal(http.ListenAndServe(":8080", handlers.CORS(handlers.AllowedOrigins([]string{"*"}))(r)))
 }
