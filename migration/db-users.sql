@@ -5,5 +5,5 @@ create table users(
 );
 
 INSERT INTO users(nome, cargo) VALUES
-('Guilherme', 'Programador'),
+('Cauã Reymond', 'Ator'),
 ('Murylo', 'Desenvolvedor');
